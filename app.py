@@ -2,7 +2,8 @@
 import os
 import uuid
 import time
-import asyncio
+import redis.asyncio as aioredis
+
 import shutil
 from typing import Optional
 from fastapi import FastAPI, File, UploadFile, Form, HTTPException, BackgroundTasks
