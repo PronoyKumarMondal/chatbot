@@ -2,7 +2,6 @@
 import os
 import uuid
 import time
-import shutil
 import asyncio
 from typing import Optional
 
@@ -95,6 +94,15 @@ async def startup_event():
         raise
 
 # ---------- Endpoints ----------
+@app.get("/")
+async def root():
+    r = await get_redis()
+    keys = await r.keys("session:*")
+    return {
+        "message": "Academic Chat Backend is running!",
+        "active_sessions_count": len(keys)
+    }
+
 @app.post("/session")
 async def create_session():
     session_id = "sess_" + uuid.uuid4().hex
